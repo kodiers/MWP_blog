@@ -1,0 +1,28 @@
+.post_body {
+    border: 1px solid lightgrey;
+    background-color: lightgrey;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.post_info {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 10px;
+}
+
+.post_votes {
+    margin-top: 10px;
+}
+
+#total_votes {
+    font-weight: 900;
+    font-size: 16px;
+}
+.comment {
+    background-color: lightgrey;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,13 +32,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog',
+    'ckeditor',
+    'ckeditor_uploader',
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -108,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -121,3 +125,72 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# MEDIA SETTINGS
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# LOGIN URLS
+LOGIN_REDIRECT_URL = reverse_lazy('blog:index')
+LOGIN_URL = reverse_lazy('login')
+LOGOUT_URL = reverse_lazy('logout')
+
+
+# CKEDITOR CONFIG
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono',
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            {'name': 'insert', 'items': ['Image', 'Youtube']},
+            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            {'name': 'forms',
+            'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+                           'HiddenField']},
+            '/',
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+                 'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                           'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                           'Language']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert',
+                 'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+                '/',
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+            {'name': 'about', 'items': ['About']},
+        ],
+        'tabSpaces': 4,
+        'removePlugins': 'stylesheetparser',
+        'extraPlugins': ','.join(
+            [
+                'div',
+                'autolink',
+                'autoembed',
+                'embedsemantic',
+                'autogrow',
+                'iframe',
+                'iframedialog',
+                'widget',
+                'lineutils',
+                'clipboard',
+                'dialog',
+                'dialogui',
+                'elementspath',
+                'youtube',
+            ]
+        ),
+    }
+}
+
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_REQUIRE_STAFF=False

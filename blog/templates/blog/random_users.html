@@ -1,0 +1,11 @@
+<ul>
+    {% for author in authors %}
+        <li>
+            <a href="{% url 'blog:user_page' author.username %}">
+                {{ author.username }}
+            </a>
+        </li>
+    {% empty %}
+        No registered authors
+    {% endfor %}
+</ul>

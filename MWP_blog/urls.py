@@ -13,9 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.decorators.cache import never_cache
+from ckeditor_uploader import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-]
+    url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', name='logout'),
+    url(r'^logout-then-login/$', 'django.contrib.auth.views.logout_then_login', name='logout_then_login'),
+    url(r'^/ckeditor/upload/', views.upload, name='ckeditor_upload'),
+    url(r'^/ckeditor/browse/', never_cache(views.browse), name='ckeditor_browse'),
+    url(r'^', include('blog.urls', namespace='blog')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

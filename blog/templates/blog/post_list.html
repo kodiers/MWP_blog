@@ -1,0 +1,20 @@
+{% for post in posts %}
+    <div class="post_info">
+        <a href="{{ post.get_absolute_url }}"><h2>{{ post.title }}</h2></a>
+        <p class="text-muted">
+            Author: <a href="{% url 'blog:user_page' post.author.username %}">{{ post.author }}</a>
+            Rating: {{ post.users_votes.count }}<br>
+            Created at: {{ post.created|date:"Y-m-d" }}
+        </p>
+        <div class="post_body">
+            {{ post.body|safe|truncatewords_html:10 }}
+        </div>
+        {% if post.author == request.user %}
+            <a href="{% url 'blog:post_edit' post.slug %}" class="btn btn-primary">
+                Edit
+            </a>
+        {% endif %}
+    </div>
+{% empty %}
+    No posts
+{% endfor %}

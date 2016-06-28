@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}User {{ user.username }}{% endblock %}
+{% block page_header %}{{ user.username }}'s page{% endblock %}
+{% block content %}
+    {% include 'blog/post_list.html' %}
+{% endblock %}
