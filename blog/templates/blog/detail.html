@@ -53,7 +53,7 @@
         <div class="post_votes">
             {% with total_votes=post.users_votes.count users_votes=post.users_votes.all %}
                 Total votes: <span id="total_votes">{{ total_votes }}</span>
-                {% if user.is_authenticated %}
+                {% if user.is_authenticated and user != post.author %}
                     <a href="#" data-id="{{ post.id }}" data-action="{% if request.user in users_votes %}un{% endif %}vote" class="vote btn btn-primary">
                         <span class="count total">
                             {% if request.user not in users_votes %}
